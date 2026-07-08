@@ -29,9 +29,8 @@ server {
 }
 EOF
 
-# Copy the static infographic + assets
+# Copy the static infographic (image is inlined as base64 in HTML)
 COPY index.html /usr/share/nginx/html/index.html
-COPY ploshad.jpg /usr/share/nginx/html/ploshad.jpg
 
 EXPOSE 80
 
