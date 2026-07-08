@@ -134,35 +134,41 @@ h3 { font-size: 22px; margin-bottom: 8px; }
 .hero .meta span { display: inline-flex; align-items: center; gap: 8px; }
 .hero .meta svg { width: 14px; height: 14px; stroke: var(--green); }
 
-/* Hero — animated rings (population) */
-.hero-visual { position: relative; height: 480px; }
-.ring-stack { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
-.ring { position: absolute; border-radius: 50%; border: 1px solid var(--line-strong); }
-.ring-1 { width: 460px; height: 460px; animation: ring-rotate 60s linear infinite; }
-.ring-2 { width: 360px; height: 360px; animation: ring-rotate 80s linear infinite reverse; border-color: rgba(245, 192, 101, 0.18); }
-.ring-3 { width: 260px; height: 260px; animation: ring-rotate 100s linear infinite; border-color: rgba(107, 180, 240, 0.18); }
-@keyframes ring-rotate { from { transform: rotate(0); } to { transform: rotate(360deg); } }
-.ring .dot { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: var(--green); box-shadow: 0 0 20px var(--green); }
-.ring-1 .dot { top: -5px; left: 50%; transform: translateX(-50%); }
-.ring-2 .dot { top: 50%; right: -5px; transform: translateY(-50%); background: var(--gold); box-shadow: 0 0 20px var(--gold); }
-.ring-3 .dot { bottom: -5px; left: 50%; transform: translateX(-50%); background: var(--blue); box-shadow: 0 0 20px var(--blue); }
-
-.ring-center {
-  width: 180px; height: 180px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
-  border: 1px solid var(--line-strong);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  z-index: 2;
-  box-shadow: var(--shadow-2);
-  position: relative;
+/* Hero — satellite image with dynamic zoom */
+.hero-visual { position: relative; height: 480px; border-radius: var(--r-xl); overflow: hidden; border: 1px solid var(--line-strong); box-shadow: var(--shadow-2); }
+.hero-photo {
+  position: absolute; inset: 0;
+  background-image: url('ploshad.jpg');
+  background-size: cover;
+  background-position: center;
+  animation: hero-zoom 18s ease-in-out infinite alternate;
+  will-change: transform;
 }
-.ring-center::before {
-  content: ''; position: absolute; inset: -1px; border-radius: 50%;
-  background: conic-gradient(from 0deg, var(--green), var(--gold), var(--blue), var(--green));
-  z-index: -1; filter: blur(12px); opacity: 0.4;
+@keyframes hero-zoom {
+  0%   { transform: scale(1.0)  translate(0, 0); }
+  50%  { transform: scale(1.15) translate(-1.5%, -1%); }
+  100% { transform: scale(1.08) translate(1%, -0.5%); }
 }
-.ring-center .num { font-size: 56px; font-weight: 800; line-height: 1; color: var(--ink); }
-.ring-center .lbl { font-size: 12px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.2em; margin-top: 6px; }
+.hero-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(10, 20, 16, 0.45) 0%, rgba(10, 20, 16, 0.15) 50%, rgba(245, 192, 101, 0.10) 100%);
+  pointer-events: none;
+}
+.hero-corner {
+  position: absolute; z-index: 2; pointer-events: none;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: rgba(255, 255, 255, 0.75); text-transform: uppercase; letter-spacing: 0.15em;
+  padding: 8px 12px;
+  background: rgba(10, 20, 16, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  backdrop-filter: blur(8px);
+}
+.hero-corner.tl { top: 14px; left: 14px; }
+.hero-corner.br { bottom: 14px; right: 14px; }
+.hero-corner .dot { display: inline-block; width: 6px; height: 6px; background: var(--green); border-radius: 50%; margin-right: 6px; box-shadow: 0 0 8px var(--green); animation: blink 2s ease-in-out infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+.hero-photo-fallback { display: none; }
 
 .hero-kpi { position: absolute; padding: 14px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); backdrop-filter: blur(20px); box-shadow: var(--shadow-1); animation: float 6s ease-in-out infinite; }
 .hero-kpi .v { font-size: 24px; font-weight: 700; color: var(--ink); }
@@ -442,15 +448,9 @@ footer .copy { font-size: 12px; color: var(--ink-soft); margin-top: 8px; opacity
         </div>
       </div>
       <div class="hero-visual reveal d-2">
-        <div class="ring-stack">
-          <div class="ring ring-1"><div class="dot"></div></div>
-          <div class="ring ring-2"><div class="dot"></div></div>
-          <div class="ring ring-3"><div class="dot"></div></div>
-          <div class="ring-center">
-            <div class="num" data-count="148">0</div>
-            <div class="lbl">участников</div>
-          </div>
-        </div>
+        <div class="hero-photo"></div>
+        <div class="hero-corner tl"><span class="dot"></span>Тверь · 56°51′ N · 35°55′ E</div>
+        <div class="hero-corner br">Спутниковый снимок · 2026</div>
         <div class="hero-kpi kpi-1">
           <div class="v" data-count="78">0%</div>
           <div class="k">женщины</div>
@@ -1100,7 +1100,12 @@ footer .copy { font-size: 12px; color: var(--ink-soft); margin-top: 8px; opacity
     <div class="dev">
       Разработчик <a href="#">2kad.it</a>
     </div>
-    <div class="copy">Тверская площадь · Инфографика исследования общественного мнения · 148 респондентов · 2026</div>
+    <div class="copy">
+      Тверская площадь · Инфографика исследования общественного мнения · 148 респондентов · 2026<br>
+      <a href="https://urban2kad.ru/cases/tver-square.html" target="_blank" rel="noopener" style="color:var(--green); text-decoration:none; border-bottom: 1px dashed var(--green); padding-bottom: 1px; display:inline-block; margin-top:6px;">
+        Подробный кейс на urban2kad.ru →
+      </a>
+    </div>
   </div>
 </footer>
 
