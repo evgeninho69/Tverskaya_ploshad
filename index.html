@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тверская площадь — Инфографика исследования</title>
+<style>
+:root {
+  --bg-0: #0a1410;
+  --bg-1: #0f1a16;
+  --bg-2: #16241e;
+  --surface: rgba(22, 36, 30, 0.7);
+  --surface-2: rgba(28, 48, 40, 0.55);
+  --line: rgba(120, 200, 160, 0.15);
+  --line-strong: rgba(120, 200, 160, 0.35);
+  --ink: #eaf2ee;
+  --ink-dim: #aab9b3;
+  --ink-soft: #6f847c;
+  --green: #4ec98a;
+  --green-2: #2ea667;
+  --green-soft: rgba(78, 201, 138, 0.18);
+  --gold: #f5c065;
+  --gold-2: #e09b3c;
+  --gold-soft: rgba(245, 192, 101, 0.18);
+  --red: #f06b6b;
+  --red-soft: rgba(240, 107, 107, 0.15);
+  --blue: #6bb4f0;
+  --blue-soft: rgba(107, 180, 240, 0.15);
+  --violet: #b88df0;
+  --violet-soft: rgba(184, 141, 240, 0.15);
+  --pink: #f094b6;
+  --pink-soft: rgba(240, 148, 182, 0.15);
+  --shadow-1: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --shadow-2: 0 20px 60px rgba(0, 0, 0, 0.55);
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-xl: 32px;
+  --t: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', system-ui, sans-serif;
+  background: var(--bg-0);
+  color: var(--ink);
+  line-height: 1.55;
+  overflow-x: hidden;
+  font-feature-settings: 'cv11', 'ss01', 'ss03';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==== Decorative background ==== */
+.bg-mesh {
+  position: fixed; inset: 0; z-index: -2;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(78, 201, 138, 0.15), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 85% 30%, rgba(245, 192, 101, 0.10), transparent 60%),
+    radial-gradient(ellipse 90% 60% at 50% 95%, rgba(107, 180, 240, 0.08), transparent 60%),
+    var(--bg-0);
+}
+.bg-grid {
+  position: fixed; inset: 0; z-index: -1;
+  background-image:
+    linear-gradient(rgba(120, 200, 160, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 200, 160, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 70% 50% at 50% 50%, black 30%, transparent 90%);
+  pointer-events: none;
+}
+.bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+  z-index: -1;
+  pointer-events: none;
+  animation: orb-float 20s ease-in-out infinite;
+}
+.bg-orb-1 { width: 400px; height: 400px; background: var(--green); top: 10%; left: 5%; animation-delay: 0s; }
+.bg-orb-2 { width: 500px; height: 500px; background: var(--gold); top: 40%; right: 10%; animation-delay: -5s; }
+.bg-orb-3 { width: 350px; height: 350px; background: var(--blue); bottom: 10%; left: 30%; animation-delay: -10s; }
+
+@keyframes orb-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.05); }
+  66% { transform: translate(-30px, 40px) scale(0.95); }
+}
+
+/* ==== Layout ==== */
+.container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+section { padding: 80px 0; position: relative; }
+section + section { border-top: 1px solid var(--line); }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--green); font-weight: 600;
+  padding: 6px 14px; border: 1px solid var(--line-strong);
+  border-radius: 999px; background: var(--green-soft);
+  margin-bottom: 18px;
+}
+.eyebrow::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; box-shadow: 0 0 12px var(--green); }
+
+h1, h2, h3 { font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
+h2 { font-size: 42px; margin-bottom: 12px; }
+h3 { font-size: 22px; margin-bottom: 8px; }
+.section-lead { font-size: 17px; color: var(--ink-dim); max-width: 720px; margin-bottom: 48px; }
+.section-head { margin-bottom: 48px; }
+.section-num {
+  font-family: 'JetBrains Mono', 'SF Mono', monospace;
+  font-size: 13px; color: var(--ink-soft); letter-spacing: 0.15em;
+  display: block; margin-bottom: 6px;
+}
+
+/* ==== Hero ==== */
+.hero { padding: 120px 0 80px; min-height: 90vh; display: flex; align-items: center; }
+.hero-inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center; }
+@media (max-width: 980px) { .hero-inner { grid-template-columns: 1fr; gap: 40px; } }
+
+.hero h1 {
+  font-size: clamp(46px, 6vw, 84px);
+  background: linear-gradient(135deg, var(--ink) 0%, var(--green) 50%, var(--gold) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 24px;
+}
+.hero h1 .accent { color: var(--gold); -webkit-text-fill-color: var(--gold); }
+.hero p.lead { font-size: 19px; color: var(--ink-dim); margin-bottom: 32px; max-width: 560px; }
+.hero .meta {
+  display: flex; gap: 18px; flex-wrap: wrap;
+  font-size: 13px; color: var(--ink-soft);
+}
+.hero .meta span { display: inline-flex; align-items: center; gap: 8px; }
+.hero .meta svg { width: 14px; height: 14px; stroke: var(--green); }
+
+/* Hero — animated rings (population) */
+.hero-visual { position: relative; height: 480px; }
+.ring-stack { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.ring { position: absolute; border-radius: 50%; border: 1px solid var(--line-strong); }
+.ring-1 { width: 460px; height: 460px; animation: ring-rotate 60s linear infinite; }
+.ring-2 { width: 360px; height: 360px; animation: ring-rotate 80s linear infinite reverse; border-color: rgba(245, 192, 101, 0.18); }
+.ring-3 { width: 260px; height: 260px; animation: ring-rotate 100s linear infinite; border-color: rgba(107, 180, 240, 0.18); }
+@keyframes ring-rotate { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+.ring .dot { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: var(--green); box-shadow: 0 0 20px var(--green); }
+.ring-1 .dot { top: -5px; left: 50%; transform: translateX(-50%); }
+.ring-2 .dot { top: 50%; right: -5px; transform: translateY(-50%); background: var(--gold); box-shadow: 0 0 20px var(--gold); }
+.ring-3 .dot { bottom: -5px; left: 50%; transform: translateX(-50%); background: var(--blue); box-shadow: 0 0 20px var(--blue); }
+
+.ring-center {
+  width: 180px; height: 180px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
+  border: 1px solid var(--line-strong);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  z-index: 2;
+  box-shadow: var(--shadow-2);
+  position: relative;
+}
+.ring-center::before {
+  content: ''; position: absolute; inset: -1px; border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--green), var(--gold), var(--blue), var(--green));
+  z-index: -1; filter: blur(12px); opacity: 0.4;
+}
+.ring-center .num { font-size: 56px; font-weight: 800; line-height: 1; color: var(--ink); }
+.ring-center .lbl { font-size: 12px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.2em; margin-top: 6px; }
+
+.hero-kpi { position: absolute; padding: 14px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); backdrop-filter: blur(20px); box-shadow: var(--shadow-1); animation: float 6s ease-in-out infinite; }
+.hero-kpi .v { font-size: 24px; font-weight: 700; color: var(--ink); }
+.hero-kpi .k { font-size: 11px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.1em; }
+.kpi-1 { top: 8%; left: -10px; animation-delay: 0s; }
+.kpi-2 { top: 40%; right: -20px; animation-delay: -2s; }
+.kpi-3 { bottom: 8%; left: 10%; animation-delay: -4s; }
+.kpi-1 .v { color: var(--green); }
+.kpi-2 .v { color: var(--gold); }
+.kpi-3 .v { color: var(--blue); }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+/* ==== Cards ==== */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  backdrop-filter: blur(20px);
+  position: relative;
+  transition: transform var(--t), border-color var(--t), box-shadow var(--t);
+  overflow: hidden;
+}
+.card::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(78, 201, 138, 0.04), transparent 50%);
+  pointer-events: none;
+}
+.card:hover { transform: translateY(-4px); border-color: var(--line-strong); box-shadow: var(--shadow-1); }
+.card .lbl {
+  display: block; font-size: 11px; color: var(--ink-soft);
+  text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 8px;
+}
+.card .big {
+  font-size: 38px; font-weight: 700; line-height: 1;
+  background: linear-gradient(135deg, var(--ink), var(--green));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.card .sub { font-size: 13px; color: var(--ink-dim); margin-top: 8px; }
+.card .icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--green-soft); display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+}
+.card .icon svg { width: 18px; height: 18px; stroke: var(--green); }
+
+/* ==== KPI grid ==== */
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+  margin-bottom: 40px;
+}
+@media (max-width: 900px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+.kpi-card { position: relative; }
+.kpi-card .ring-bg { position: absolute; right: -30px; top: -30px; width: 120px; height: 120px; opacity: 0.15; }
+
+/* ==== Bar chart ==== */
+.bar-chart { display: flex; flex-direction: column; gap: 14px; }
+.bar-row { display: grid; grid-template-columns: 200px 1fr 60px; align-items: center; gap: 16px; }
+.bar-row .lbl { font-size: 14px; color: var(--ink-dim); }
+.bar-row .val { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--ink); text-align: right; font-weight: 600; }
+.bar-track { height: 28px; background: var(--bg-2); border-radius: 6px; overflow: hidden; position: relative; }
+.bar-fill {
+  height: 100%; width: 0;
+  background: linear-gradient(90deg, var(--green-2), var(--green));
+  border-radius: 6px;
+  transition: width 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  display: flex; align-items: center; justify-content: flex-end;
+  padding-right: 10px; color: var(--bg-0); font-weight: 700; font-size: 12px;
+}
+.bar-fill.warm { background: linear-gradient(90deg, var(--gold-2), var(--gold)); }
+.bar-fill.cold { background: linear-gradient(90deg, #4a8ad0, var(--blue)); }
+.bar-fill.violet { background: linear-gradient(90deg, #8a55d0, var(--violet)); }
+.bar-fill.red { background: linear-gradient(90deg, #c05050, var(--red)); }
+.bar-fill.pink { background: linear-gradient(90deg, #c06090, var(--pink)); }
+@media (max-width: 700px) { .bar-row { grid-template-columns: 130px 1fr 50px; } }
+
+/* ==== Donut ==== */
+.donut-wrap { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+.donut { width: 240px; height: 240px; position: relative; flex-shrink: 0; }
+.donut svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.donut circle { fill: none; stroke-width: 22; }
+.donut .track { stroke: var(--bg-2); }
+.donut .seg { transition: stroke-dasharray 1.6s cubic-bezier(0.4, 0, 0.2, 1); stroke-linecap: butt; }
+.donut-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.donut-center .v { font-size: 36px; font-weight: 800; }
+.donut-center .l { font-size: 11px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.15em; }
+.donut-legend { flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 10px; }
+.donut-legend .item { display: flex; align-items: center; gap: 12px; font-size: 14px; }
+.donut-legend .sw { width: 14px; height: 14px; border-radius: 4px; }
+.donut-legend .v { margin-left: auto; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+
+/* ==== Stacked horizontal ==== */
+.stack-bar {
+  display: flex; height: 56px; border-radius: var(--r-md); overflow: hidden;
+  background: var(--bg-2); margin-bottom: 18px; border: 1px solid var(--line);
+}
+.stack-bar .seg {
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px; color: var(--bg-0);
+  transition: flex 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative; overflow: hidden;
+}
+.stack-bar .seg span { white-space: nowrap; }
+.stack-legend { display: flex; flex-wrap: wrap; gap: 16px; }
+.stack-legend .item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-dim); }
+.stack-legend .sw { width: 12px; height: 12px; border-radius: 3px; }
+
+/* ==== Split viz (vs) ==== */
+.vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 760px) { .vs-grid { grid-template-columns: 1fr; } }
+.vs-card { padding: 24px; border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--line); }
+.vs-card .head { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.vs-card .head .dot { width: 10px; height: 10px; border-radius: 50%; }
+.vs-card .head .label { font-size: 12px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.15em; }
+.vs-card .big-num { font-size: 48px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+.vs-card .big-num small { font-size: 18px; color: var(--ink-soft); font-weight: 500; }
+.vs-card .desc { font-size: 13px; color: var(--ink-dim); margin-top: 6px; }
+.vs-card .bar-mini { height: 6px; border-radius: 3px; background: var(--bg-2); margin-top: 12px; overflow: hidden; }
+.vs-card .bar-mini .fill { height: 100%; border-radius: 3px; transition: width 1.4s ease; }
+.vs-yes { border-color: rgba(78, 201, 138, 0.3); background: linear-gradient(135deg, var(--green-soft), var(--surface)); }
+.vs-yes .big-num { color: var(--green); }
+.vs-yes .bar-mini .fill { background: var(--green); }
+.vs-no { border-color: rgba(240, 107, 107, 0.3); background: linear-gradient(135deg, var(--red-soft), var(--surface)); }
+.vs-no .big-num { color: var(--red); }
+.vs-no .bar-mini .fill { background: var(--red); }
+.vs-maybe { border-color: rgba(245, 192, 101, 0.3); background: linear-gradient(135deg, var(--gold-soft), var(--surface)); }
+.vs-maybe .big-num { color: var(--gold); }
+.vs-maybe .bar-mini .fill { background: var(--gold); }
+
+/* ==== Heatmap / list ==== */
+.list-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (max-width: 760px) { .list-grid { grid-template-columns: 1fr; } }
+.list-row {
+  display: flex; align-items: center; gap: 14px; padding: 14px 16px;
+  background: var(--surface-2); border-radius: var(--r-md); border: 1px solid var(--line);
+  transition: transform var(--t), border-color var(--t);
+}
+.list-row:hover { transform: translateX(4px); border-color: var(--line-strong); }
+.list-row .icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.list-row .lbl { flex: 1; font-size: 14px; }
+.list-row .val { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: var(--ink); background: var(--bg-2); padding: 4px 10px; border-radius: 6px; }
+
+/* ==== Bubble ==== */
+.bubble-wrap { display: flex; flex-wrap: wrap; gap: 10px; }
+.bubble {
+  padding: 12px 18px; border-radius: 999px;
+  background: var(--surface-2); border: 1px solid var(--line);
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 14px; color: var(--ink);
+  transition: transform var(--t), border-color var(--t);
+  position: relative; cursor: default;
+}
+.bubble:hover { transform: translateY(-2px) scale(1.03); border-color: var(--green); }
+.bubble .w { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--green); font-weight: 700; padding: 2px 8px; background: var(--green-soft); border-radius: 999px; }
+.bubble.gold { border-color: var(--gold-soft); }
+.bubble.gold .w { color: var(--gold); background: var(--gold-soft); }
+.bubble.blue { border-color: var(--blue-soft); }
+.bubble.blue .w { color: var(--blue); background: var(--blue-soft); }
+.bubble.violet { border-color: var(--violet-soft); }
+.bubble.violet .w { color: var(--violet); background: var(--violet-soft); }
+
+/* ==== Radar / radial ==== */
+.radial-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+@media (max-width: 760px) { .radial-grid { grid-template-columns: 1fr; } }
+.radial { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 24px; }
+.radial .title { font-size: 13px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; }
+.radial .row { display: flex; align-items: center; gap: 14px; padding: 10px 0; }
+.radial .row + .row { border-top: 1px dashed var(--line); }
+.radial .row .name { width: 160px; font-size: 14px; }
+.radial .row .bar { flex: 1; height: 8px; background: var(--bg-2); border-radius: 4px; overflow: hidden; }
+.radial .row .bar .f { height: 100%; background: var(--green); border-radius: 4px; transition: width 1.4s ease; }
+.radial .row .pct { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--green); font-weight: 700; min-width: 48px; text-align: right; }
+
+/* ==== Verdict / Insight cards ==== */
+.insight {
+  display: grid; grid-template-columns: 60px 1fr; gap: 20px;
+  padding: 22px; background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-lg); transition: all var(--t);
+}
+.insight:hover { border-color: var(--green); background: linear-gradient(135deg, var(--green-soft), var(--surface)); }
+.insight .n {
+  font-size: 36px; font-weight: 800; line-height: 1;
+  background: linear-gradient(135deg, var(--green), var(--gold));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.insight h4 { font-size: 16px; margin-bottom: 6px; color: var(--ink); }
+.insight p { font-size: 14px; color: var(--ink-dim); }
+.insight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+@media (max-width: 760px) { .insight-grid { grid-template-columns: 1fr; } }
+
+/* ==== Quote ==== */
+.quote {
+  padding: 28px 32px; background: linear-gradient(135deg, var(--gold-soft), var(--surface));
+  border: 1px solid var(--gold-soft); border-radius: var(--r-lg);
+  position: relative; font-style: italic; color: var(--ink);
+}
+.quote::before { content: '"'; position: absolute; top: -10px; left: 18px; font-size: 80px; color: var(--gold); line-height: 1; opacity: 0.5; }
+.quote .author { display: block; margin-top: 12px; font-style: normal; font-size: 13px; color: var(--ink-soft); }
+
+/* ==== Footer ==== */
+footer {
+  padding: 60px 0 40px; border-top: 1px solid var(--line);
+  text-align: center;
+}
+footer .dev { font-size: 14px; color: var(--ink-soft); }
+footer .dev a { color: var(--green); text-decoration: none; border-bottom: 1px dashed var(--green); padding-bottom: 1px; }
+footer .copy { font-size: 12px; color: var(--ink-soft); margin-top: 8px; opacity: 0.6; }
+
+/* ==== Reveal animation ==== */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal.d-1 { transition-delay: 0.1s; }
+.reveal.d-2 { transition-delay: 0.2s; }
+.reveal.d-3 { transition-delay: 0.3s; }
+.reveal.d-4 { transition-delay: 0.4s; }
+
+/* ==== Tag ==== */
+.tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px; font-size: 11px; border-radius: 999px;
+  background: var(--bg-2); color: var(--ink-soft);
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+.tag.green { background: var(--green-soft); color: var(--green); }
+.tag.gold { background: var(--gold-soft); color: var(--gold); }
+.tag.red { background: var(--red-soft); color: var(--red); }
+.tag.blue { background: var(--blue-soft); color: var(--blue); }
+
+/* ==== Two col split ==== */
+.split-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 900px) { .split-2 { grid-template-columns: 1fr; } }
+
+/* ==== Stat big ==== */
+.stat-big { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.stat-big .v { font-size: 56px; font-weight: 800; line-height: 1; background: linear-gradient(135deg, var(--ink), var(--green)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.stat-big .l { font-size: 13px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.15em; }
+
+/* ==== Age pyramid ==== */
+.pyramid { display: flex; flex-direction: column; gap: 8px; }
+.pyr-row { display: grid; grid-template-columns: 60px 1fr 60px; align-items: center; gap: 14px; }
+.pyr-row .l, .pyr-row .r { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; }
+.pyr-row .l { text-align: right; color: var(--violet); }
+.pyr-row .r { text-align: left; color: var(--green); }
+.pyr-row .mid { font-size: 13px; color: var(--ink-dim); text-align: center; }
+.pyr-bar { height: 22px; background: var(--bg-2); border-radius: 6px; overflow: hidden; position: relative; display: flex; }
+.pyr-bar .male, .pyr-bar .female { height: 100%; transition: width 1.4s ease; }
+.pyr-bar .male { background: linear-gradient(90deg, var(--violet), #9a6cd0); }
+.pyr-bar .female { background: linear-gradient(90deg, var(--green-2), var(--green)); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-1); }
+::-webkit-scrollbar-thumb { background: var(--bg-2); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: var(--green-soft); }
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="bg-grid"></div>
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+<div class="bg-orb bg-orb-3"></div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="reveal">
+        <span class="eyebrow">Исследование общественного мнения · 2026</span>
+        <h1>Тверская<br>площадь<span class="accent">.</span></h1>
+        <p class="lead">Что думают жители Твери о главной площади города — от памятников и фонтана до качелей и пикников на траве. 149 голосов, 19 вопросов, один документ.</p>
+        <div class="meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Май–Июнь 2026</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> г. Тверь</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg> 148 респондентов</span>
+        </div>
+      </div>
+      <div class="hero-visual reveal d-2">
+        <div class="ring-stack">
+          <div class="ring ring-1"><div class="dot"></div></div>
+          <div class="ring ring-2"><div class="dot"></div></div>
+          <div class="ring ring-3"><div class="dot"></div></div>
+          <div class="ring-center">
+            <div class="num" data-count="148">0</div>
+            <div class="lbl">участников</div>
+          </div>
+        </div>
+        <div class="hero-kpi kpi-1">
+          <div class="v" data-count="78">0%</div>
+          <div class="k">женщины</div>
+        </div>
+        <div class="hero-kpi kpi-2">
+          <div class="v" data-count="50">0%</div>
+          <div class="k">против пешеходной сети</div>
+        </div>
+        <div class="hero-kpi kpi-3">
+          <div class="v" data-count="70">0%</div>
+          <div class="k">за озеленение</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 01 КТО ОТВЕЧАЛ ===== -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-num">01 / Портрет</span>
+      <span class="eyebrow">Кто отвечал</span>
+      <h2>Кто заполнял анкету</h2>
+      <p class="section-lead">Половозрастной срез респондентов. Преобладают женщины 25–44 лет — самая активная городская аудитория.</p>
+    </div>
+
+    <div class="split-2">
+      <div class="card reveal">
+        <h3>Пол респондентов</h3>
+        <p style="color:var(--ink-soft); font-size:13px; margin-bottom:24px;">Из 148 ответивших</p>
+        <div class="donut-wrap">
+          <div class="donut">
+            <svg viewBox="0 0 100 100">
+              <circle class="track" cx="50" cy="50" r="40"/>
+              <circle class="seg" cx="50" cy="50" r="40" stroke="var(--green)" data-dasharray="0 251.3" data-target="207.5"/>
+              <circle class="seg" cx="50" cy="50" r="40" stroke="var(--violet)" data-dasharray="0 251.3" data-target="57.3"/>
+            </svg>
+            <div class="donut-center">
+              <div class="v">78%</div>
+              <div class="l">женщины</div>
+            </div>
+          </div>
+          <div class="donut-legend">
+            <div class="item">
+              <span class="sw" style="background:var(--green)"></span>
+              <span>Женщины</span>
+              <span class="v">116</span>
+            </div>
+            <div class="item">
+              <span class="sw" style="background:var(--violet)"></span>
+              <span>Мужчины</span>
+              <span class="v">32</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal d-1">
+        <h3>Возрастные группы</h3>
+        <p style="color:var(--ink-soft); font-size:13px; margin-bottom:24px;">Ядро — 25–34 года</p>
+        <div class="bar-chart" id="ageChart">
+          <div class="bar-row" data-pct="2.0"><span class="lbl">14–18</span><div class="bar-track"><div class="bar-fill" data-w="3">3</div></div><span class="val">3</span></div>
+          <div class="bar-row" data-pct="17.6"><span class="lbl">19–24</span><div class="bar-track"><div class="bar-fill" data-w="26">26</div></div><span class="val">26</span></div>
+          <div class="bar-row" data-pct="42.6"><span class="lbl">25–34</span><div class="bar-track"><div class="bar-fill" data-w="63">63</div></div><span class="val">63</span></div>
+          <div class="bar-row" data-pct="27.0"><span class="lbl">35–44</span><div class="bar-track"><div class="bar-fill" data-w="40">40</div></div><span class="val">40</span></div>
+          <div class="bar-row" data-pct="9.5"><span class="lbl">45–59</span><div class="bar-track"><div class="bar-fill warm" data-w="14">14</div></div><span class="val">14</span></div>
+          <div class="bar-row" data-pct="1.4"><span class="lbl">60+</span><div class="bar-track"><div class="bar-fill warm" data-w="2">2</div></div><span class="val">2</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 02 КАК ИСПОЛЬЗУЮТ ===== -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-num">02 / Использование</span>
+      <span class="eyebrow">Как используют площадь</span>
+      <h2>Транзит, отдых, ожидание</h2>
+      <p class="section-lead">Половина горожан использует площадь как транзитный маршрут. Но при этом 74 человека приходят сюда осознанно — гулять и отдыхать.</p>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="card kpi-card reveal">
+        <span class="lbl">Каждый день</span>
+        <div class="big" data-count="14">0</div>
+        <div class="sub">9.5% респондентов</div>
+      </div>
+      <div class="card kpi-card reveal d-1">
+        <span class="lbl">Несколько раз в неделю</span>
+        <div class="big" data-count="30">0</div>
+        <div class="sub">20.3% — постоянные гости</div>
+      </div>
+      <div class="card kpi-card reveal d-2">
+        <span class="lbl">Раз в неделю+</span>
+        <div class="big" data-count="48">0</div>
+        <div class="sub">32% заходят регулярно</div>
+      </div>
+      <div class="card kpi-card reveal d-3">
+        <span class="lbl">Несколько раз в год</span>
+        <div class="big" data-count="39">0</div>
+        <div class="sub">26% — случайные визиты</div>
+      </div>
+    </div>
+
+    <div class="split-2">
+      <div class="card reveal">
+        <h3>Частота посещения</h3>
+        <p style="color:var(--ink-soft); font-size:13px; margin-bottom:24px;">Распределение по регулярности визитов</p>
+        <div class="bar-chart" id="freqChart">
+          <div class="bar-row"><span class="lbl">Каждый день</span><div class="bar-track"><div class="bar-fill green" data-w="14">14</div></div><span class="val">14</span></div>
+          <div class="bar-row"><span class="lbl">Несколько раз в неделю</span><div class="bar-track"><div class="bar-fill green" data-w="30">30</div></div><span class="val">30</span></div>
+          <div class="bar-row"><span class="lbl">Раз в неделю</span><div class="bar-track"><div class="bar-fill green" data-w="17">17</div></div><span class="val">17</span></div>
+          <div class="bar-row"><span class="lbl">Несколько раз в месяц</span><div class="bar-track"><div class="bar-fill green" data-w="31">31</div></div><span class="val">31</span></div>
+          <div class="bar-row"><span class="lbl">Раз в месяц</span><div class="bar-track"><div class="bar-fill gold" data-w="14">14</div></div><span class="val">14</span></div>
+          <div class="bar-row"><span class="lbl">Несколько раз в год</span><div class="bar-track"><div class="bar-fill gold" data-w="39">39</div></div><span class="val">39</span></div>
+          <div class="bar-row"><span class="lbl">Не бываю</span><div class="bar-track"><div class="bar-fill red" data-w="3">3</div></div><span class="val">3</span></div>
+        </div>
+      </div>
+
+      <div class="card reveal d-1">
+        <h3>Цель посещения</h3>
+        <p style="color:var(--ink-soft); font-size:13px; margin-bottom:24px;">Множественный выбор — всего 217 отметок</p>
+        <div class="bar-chart" id="goalChart">
+          <div class="bar-row"><span class="lbl">Транзит на работу/учёбу</span><div class="bar-track"><div class="bar-fill cold" data-w="102">102</div></div><span class="val">102</span></div>
+          <div class="bar-row"><span class="lbl">Гуляю, отдыхаю</span><div class="bar-track"><div class="bar-fill green" data-w="74">74</div></div><span class="val">74</span></div>
+          <div class="bar-row"><span class="lbl">С детьми</span><div class="bar-track"><div class="bar-fill violet" data-w="19">19</div></div><span class="val">19</span></div>
+          <div class="bar-row"><span class="lbl">Ожидаю автобус</span><div class="bar-track"><div class="bar-fill warm" data-w="13">13</div></div><span class="val">13</span></div>
+          <div class="bar-row"><span class="lbl">Обеденный перерыв</span><div class="bar-track"><div class="bar-fill pink" data-w="9">9</div></div><span class="val">9</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 ПЕШЕХОДНАЯ СЕТЬ ===== -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-num">03 / Инфраструктура</span>
+      <span class="eyebrow">Пешеходная сеть</span>
+      <h2>Половина горожан не устраивает покрытие и тропинки</h2>
+      <p class="section-lead">Текущая пешеходная сеть — главный источник нареканий. Только каждый третий считает её удобной.</p>
+    </div>
+
+    <div class="card reveal" style="padding:36px;">
+      <h3 style="margin-bottom:20px;">«Устраивает ли вас существующая пешеходная сеть?»</h3>
+      <div class="stack-bar" id="pedStack">
+        <div class="seg" data-pct="33.8" style="background:var(--green); flex:0;"><span>50 — Да</span></div>
+        <div class="seg" data-pct="49.3" style="background:var(--red); flex:0;"><span>73 — Нет</span></div>
+        <div class="seg" data-pct="16.9" style="background:var(--gold); flex:0;"><span>25 — Затрудняюсь</span></div>
+      </div>
+      <div class="stack-legend">
+        <div class="item"><span class="sw" style="background:var(--red)"></span> <span><strong>49%</strong> не устраивает — главная проблема</span></div>
+        <div class="item"><span class="sw" style="background:var(--green)"></span> <span><strong>34%</strong> всё устраивает</span></div>
+        <div class="item"><span class="sw" style="background:var(--gold)"></span> <span><strong>17%</strong> не определились</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 04 ЧЕГО НЕ ХВАТАЕТ ===== -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-num">04 / Дефицит</span>
+      <span class="eyebrow">Чего не хватает</span>
+      <h2>Озеленение, тишина, тень</h2>
+      <p class="section-lead">Топ-3 запроса — современное озеленение, места для сидения, навесы от дождя и солнца. Люди хотят оставаться на площади, а не пробегать мимо.</p>
+    </div>
+
+    <div class="card reveal" style="padding:32px;">
+      <div class="bar-chart" id="needChart">
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Современное озеленение</span><div class="bar-track"><div class="bar-fill" data-w="118">118</div></div><span class="val">118</span></div>
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Амфитеатр / места для сидения</span><div class="bar-track"><div class="bar-fill" data-w="88">88</div></div><span class="val">88</span></div>
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Навесы от дождя или солнца</span><div class="bar-track"><div class="bar-fill" data-w="85">85</div></div><span class="val">85</span></div>
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Качели</span><div class="bar-track"><div class="bar-fill" data-w="80">80</div></div><span class="val">80</span></div>
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Освещение</span><div class="bar-track"><div class="bar-fill" data-w="73">73</div></div><span class="val">73</span></div>
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Арт-объекты / Стереоскопы</span><div class="bar-track"><div class="bar-fill warm" data-w="56">56</div></div><span class="val">56</span></div>
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Уличный кинотеатр</span><div class="bar-track"><div class="bar-fill warm" data-w="46">46</div></div><span class="val">46</span></div>
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Фотозоны</span><div class="bar-track"><div class="bar-fill cold" data-w="33">33</div></div><span class="val">33</span></div>
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Уличная библиотека</span><div class="bar-track"><div class="bar-fill cold" data-w="21">21</div></div><span class="val">21</span></div>
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Велопарковка</span><div class="bar-track"><div class="bar-fill violet" data-w="20">20</div></div><span class="val">20</span></div>
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Видеонаблюдение</span><div class="bar-track"><div class="bar-fill violet" data-w="19">19</div></div><span class="val">19</span></div>
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Информационные стенды</span><div class="bar-track"><div class="bar-fill violet" data-w="14">14</div></div><span class="val">14</span></div>
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Системы навигации</span><div class="bar-track"><div class="bar-fill violet" data-w="11">11</div></div><span class="val">11</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05 НЕ ХОТЕЛИ БЫ ВИДЕТЬ ===== -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-num">05 / Антитоп</span>
+      <span class="eyebrow">Чего не хотим</span>
+      <h2>Спорт и торговля — мимо</h2>
+      <p class="section-lead">Горожане против агрессивного «спортирования» и коммерциализации площади. Тренажёры и скейт — самые отвергаемые объекты.</p>
+    </div>
+
+    <div class="card reveal" style="padding:32px;">
+      <div class="bar-chart" id="noChart">
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Уличные тренажёры</span><div class="bar-track"><div class="bar-fill red" data-w="96">96</div></div><span class="val">96</span></div>
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Скейт-площадка</span><div class="bar-track"><div class="bar-fill red" data-w="87">87</div></div><span class="val">87</span></div>
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Торговые павильоны</span><div class="bar-track"><div class="bar-fill warm" data-w="79">79</div></div><span class="val">79</span></div>
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Сцена</span><div class="bar-track"><div class="bar-fill gold" data-w="54">54</div></div><span class="val">54</span></div>
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Памятники</span><div class="bar-track"><div class="bar-fill violet" data-w="28">28</div></div><span class="val">28</span></div>
+        <div class="bar-row" style="grid-template-columns: 280px 1fr 60px;"><span class="lbl">Фонтан</span><div class="bar-track"><div class="bar-fill cold" data-w="11">11</div></div><span class="val">11</span></div>
+      </div>
+      <div style="margin-top:24px; padding:18px 20px; background:var(--green-soft); border-radius:var(--r-md); border:1px solid var(--line-strong);">
+        <p style="font-size:14px; color:var(--ink);"><strong style="color:var(--green)">27 человек</strong> отметили «Всему рад» — открыты ко всем предложениям по наполнению.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 06 БИЗНЕС ===== -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-num">06 / Коммерция</span>
+      <span class="eyebrow">Бизнес на площади</span>
+      <h2>Кофе с собой — да. Торговые ряды — нет</h2>
+      <p class="section-lead">Точки питания — безусловный лидер. Но треть респондентов категорически за свободную от торговли площадь.</p>
+    </div>
+
+    <div class="split-2">
+      <div class="card reveal">
+        <h3>Какие объекты бизнеса уместны</h3>
+        <p style="color:var(--ink-soft); font-size:13px; margin-bottom:24px;">Множественный выбор</p>
+        <div class="bar-chart">
+          <div class="bar-row"><span class="lbl">Кофе-поинт, фастфуд</span><div class="bar-track"><div class="bar-fill" data-w="80">80</div></div><span class="val">80</span></div>
+          <div class="bar-row"><span class="lbl">Свободна от торговли</span><div class="bar-track"><div class="bar-fill red" data-w="51">51</div></div><span class="val">51</span></div>
+          <div class="bar-row"><span class="lbl">Прокат велосипедов</span><div class="bar-track"><div class="bar-fill warm" data-w="37">37</div></div><span class="val">37</span></div>
+          <div class="bar-row"><span class="lbl">Сувенирная продукция</span><div class="bar-track"><div class="bar-fill violet" data-w="24">24</div></div><span class="val">24</span></div>
+        </div>
+      </div>
+
+      <div class="card reveal d-1" style="background:linear-gradient(135deg, var(--gold-soft), var(--surface));">
+        <span class="tag gold">Конфликт интересов</span>
+        <h3 style="margin-top:14px;">Кофе или тишина?</h3>
+        <p style="color:var(--ink-dim); font-size:14px; margin-bottom:18px;">Если кофе-поинт — самый популярный запрос, а 51 человек хочет площадь без торговли, решение — в архитектуре: <strong style="color:var(--ink)">1–2 лаконичных стационарных объекта</strong> вместо палаток. Это снимет напряжение обеих сторон.</p>
+        <div class="quote">
+          «Ни в коем случае не нужны зоны под стрёмные палатки с сувенирами или едой, только маленькие лаконичные и стационарные ларьки».
+          <span class="author">— Респондент, 35 лет</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 07 ДЛЯ КОГО ===== -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-num">07 / Аудитория</span>
+      <span class="eyebrow">Для кого территория</span>
+      <h2>Площадь для всех — но с приоритетом молодёжи</h2>
+      <p class="section-lead">Горожане не хотят выбирать одну аудиторию — территория должна работать для всех возрастов и сценариев. Но молодёжь упоминается чаще всего.</p>
+    </div>
+
+    <div class="card reveal" style="padding:32px;">
+      <div class="radial-grid">
+        <div>
+          <div class="radial-row" style="background:var(--surface-2); padding:18px; border-radius:var(--r-md); margin-bottom:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;"><span style="font-size:14px;"><strong>Молодёжь</strong></span><span class="tag green">126 голосов</span></div>
+            <div class="row" style="display:flex; align-items:center; gap:14px;">
+              <div style="flex:1; height:10px; background:var(--bg-2); border-radius:5px; overflow:hidden;"><div class="bar-fill" data-w="126" style="height:100%; width:0; border-radius:5px;"></div></div>
+              <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--green); font-weight:700;">85%</span>
+            </div>
+          </div>
+          <div class="radial-row" style="background:var(--surface-2); padding:18px; border-radius:var(--r-md); margin-bottom:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;"><span style="font-size:14px;"><strong>Семьи с детьми</strong></span><span class="tag green">103</span></div>
+            <div class="row" style="display:flex; align-items:center; gap:14px;">
+              <div style="flex:1; height:10px; background:var(--bg-2); border-radius:5px; overflow:hidden;"><div class="bar-fill" data-w="103" style="height:100%; width:0; border-radius:5px;"></div></div>
+              <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--green); font-weight:700;">70%</span>
+            </div>
+          </div>
+          <div class="radial-row" style="background:var(--surface-2); padding:18px; border-radius:var(--r-md); margin-bottom:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;"><span style="font-size:14px;"><strong>Туристы</strong></span><span class="tag green">94</span></div>
+            <div class="row" style="display:flex; align-items:center; gap:14px;">
+              <div style="flex:1; height:10px; background:var(--bg-2); border-radius:5px; overflow:hidden;"><div class="bar-fill" data-w="94" style="height:100%; width:0; border-radius:5px;"></div></div>
+              <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--green); font-weight:700;">64%</span>
+            </div>
+          </div>
+          <div class="radial-row" style="background:var(--surface-2); padding:18px; border-radius:var(--r-md); margin-bottom:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;"><span style="font-size:14px;"><strong>Пенсионеры</strong></span><span class="tag gold">75</span></div>
+            <div class="row" style="display:flex; align-items:center; gap:14px;">
+              <div style="flex:1; height:10px; background:var(--bg-2); border-radius:5px; overflow:hidden;"><div class="bar-fill warm" data-w="75" style="height:100%; width:0; border-radius:5px;"></div></div>
+              <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--gold); font-weight:700;">51%</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="radial-row" style="background:var(--surface-2); padding:18px; border-radius:var(--r-md); margin-bottom:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;"><span style="font-size:14px;"><strong>Студенты</strong></span><span class="tag gold">68</span></div>
+            <div class="row" style="display:flex; align-items:center; gap:14px;">
+              <div style="flex:1; height:10px; background:var(--bg-2); border-radius:5px; overflow:hidden;"><div class="bar-fill warm" data-w="68" style="height:100%; width:0; border-radius:5px;"></div></div>
+              <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--gold); font-weight:700;">46%</span>
+            </div>
+          </div>
+          <div class="radial-row" style="background:var(--surface-2); padding:18px; border-radius:var(--r-md); margin-bottom:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;"><span style="font-size:14px;"><strong>Транзитные пешеходы</strong></span><span class="tag blue">52</span></div>
+            <div class="row" style="display:flex; align-items:center; gap:14px;">
+              <div style="flex:1; height:10px; background:var(--bg-2); border-radius:5px; overflow:hidden;"><div class="bar-fill cold" data-w="52" style="height:100%; width:0; border-radius:5px;"></div></div>
+              <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--blue); font-weight:700;">35%</span>
+            </div>
+          </div>
+          <div class="radial-row" style="background:var(--surface-2); padding:18px; border-radius:var(--r-md); margin-bottom:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;"><span style="font-size:14px;"><strong>Работники соседних организаций</strong></span><span class="tag blue">43</span></div>
+            <div class="row" style="display:flex; align-items:center; gap:14px;">
+              <div style="flex:1; height:10px; background:var(--bg-2); border-radius:5px; overflow:hidden;"><div class="bar-fill cold" data-w="43" style="height:100%; width:0; border-radius:5px;"></div></div>
+              <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--blue); font-weight:700;">29%</span>
+            </div>
+          </div>
+          <div style="padding:18px; background:var(--bg-2); border-radius:var(--r-md); text-align:center; margin-top:6px;">
+            <p style="font-size:13px; color:var(--ink-dim);">Средний охват аудиторий</p>
+            <p style="font-size:32px; font-weight:800; color:var(--green); margin-top:6px;">~54%</p>
+            <p style="font-size:11px; color:var(--ink-soft);">площадь должна быть универсальной</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 08 МЕРОПРИЯТИЯ ===== -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-num">08 / События</span>
+      <span class="eyebrow">Мероприятия</span>
+      <h2>Еда, музыка, история</h2>
+      <p class="section-lead">Гастрономические фестивали — безусловный лидер. Концерты и краеведческие экскурсии — на втором плане.</p>
+    </div>
+
+    <div class="card reveal" style="padding:32px;">
+      <div class="bubble-wrap" id="bubbleWrap">
+        <div class="bubble" data-w="98"><span>Гастрономические фестивали</span><span class="w">98</span></div>
+        <div class="bubble gold" data-w="74"><span>Концерты</span><span class="w">74</span></div>
+        <div class="bubble" data-w="64"><span>Краеведческие экскурсии</span><span class="w">64</span></div>
+        <div class="bubble" data-w="61"><span>Театральные постановки</span><span class="w">61</span></div>
+        <div class="bubble gold" data-w="47"><span>Литературные чтения</span><span class="w">47</span></div>
+        <div class="bubble" data-w="41"><span>Торговые ярмарки</span><span class="w">41</span></div>
+        <div class="bubble violet" data-w="35"><span>Детские праздники</span><span class="w">35</span></div>
+        <div class="bubble blue" data-w="33"><span>Студенческие мероприятия</span><span class="w">33</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 09 ФУНКЦИОНАЛЬНЫЕ ЗОНЫ ===== -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-num">09 / Зонирование</span>
+      <span class="eyebrow">Функциональные зоны</span>
+      <h2>Тишина и пикник — главные функции</h2>
+      <p class="section-lead">Площадь хотят видеть прежде всего как тихое место под деревьями и зону для отдыха на траве. Спортивная функция — в аутсайдерах.</p>
+    </div>
+
+    <div class="card reveal" style="padding:32px;">
+      <div class="bar-chart" id="zoneChart">
+        <div class="bar-row" style="grid-template-columns: 340px 1fr 60px;"><span class="lbl">🌳 Тихая рекреационная зона в тени деревьев</span><div class="bar-track"><div class="bar-fill" data-w="121">121</div></div><span class="val">121</span></div>
+        <div class="bar-row" style="grid-template-columns: 340px 1fr 60px;"><span class="lbl">🌿 Зона отдыха на траве (пикник, чтение)</span><div class="bar-track"><div class="bar-fill" data-w="112">112</div></div><span class="val">112</span></div>
+        <div class="bar-row" style="grid-template-columns: 340px 1fr 60px;"><span class="lbl">🎭 Зона для мероприятий</span><div class="bar-track"><div class="bar-fill warm" data-w="71">71</div></div><span class="val">71</span></div>
+        <div class="bar-row" style="grid-template-columns: 340px 1fr 60px;"><span class="lbl">🧒 Зона с детским интерактивом / площадка</span><div class="bar-track"><div class="bar-fill violet" data-w="45">45</div></div><span class="val">45</span></div>
+        <div class="bar-row" style="grid-template-columns: 340px 1fr 60px;"><span class="lbl">🏪 Зона под нестационарные торговые объекты</span><div class="bar-track"><div class="bar-fill gold" data-w="21">21</div></div><span class="val">21</span></div>
+        <div class="bar-row" style="grid-template-columns: 340px 1fr 60px;"><span class="lbl">🏃 Зона спортивной площадки</span><div class="bar-track"><div class="bar-fill red" data-w="15">15</div></div><span class="val">15</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 10 СПОРНЫЕ РЕШЕНИЯ ===== -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-num">10 / Решения</span>
+      <span class="eyebrow">Спорные решения</span>
+      <h2>Памятники, фонтан, спорт — где консенсус</h2>
+      <p class="section-lead">По ключевым архитектурным вопросам голоса разделились. Смотрим, что за что.</p>
+    </div>
+
+    <div class="vs-grid" style="margin-bottom:20px;">
+      <div class="vs-card vs-yes reveal">
+        <div class="head">
+          <span class="dot" style="background:var(--green)"></span>
+          <span class="label">Памятник Салтыкова-Щедрина</span>
+        </div>
+        <div class="big-num">78 <small>человек</small></div>
+        <div class="desc">за то, чтобы оставить на текущем месте</div>
+        <div class="bar-mini"><div class="fill" data-w="78"></div></div>
+        <div style="display:flex; gap:16px; margin-top:14px; font-size:13px;">
+          <div><span style="color:var(--red); font-weight:700;">42</span> <span style="color:var(--ink-soft);">— в другое место города</span></div>
+        </div>
+        <div style="font-size:13px; margin-top:6px;">
+          <span style="color:var(--violet); font-weight:700;">28</span> <span style="color:var(--ink-soft);">— в пределах площади</span>
+        </div>
+      </div>
+
+      <div class="vs-card vs-yes reveal d-1">
+        <div class="head">
+          <span class="dot" style="background:var(--green)"></span>
+          <span class="label">Фонтан</span>
+        </div>
+        <div class="big-num">103 <small>чел.</small></div>
+        <div class="desc">за то, чтобы оставить, но реконструировать</div>
+        <div class="bar-mini"><div class="fill" data-w="103"></div></div>
+        <div style="display:flex; gap:16px; margin-top:14px; font-size:13px;">
+          <div><span style="color:var(--violet); font-weight:700;">20</span> <span style="color:var(--ink-soft);">— переместить в пределах площади</span></div>
+        </div>
+        <div style="font-size:13px; margin-top:6px;">
+          <span style="color:var(--red); font-weight:700;">13</span> <span style="color:var(--ink-soft);">— оставить как есть / Затрудняюсь 12</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vs-grid">
+      <div class="vs-card vs-maybe reveal">
+        <div class="head">
+          <span class="dot" style="background:var(--gold)"></span>
+          <span class="label">Скульптура «Семья»</span>
+        </div>
+        <div class="big-num">71 <small>чел.</small></div>
+        <div class="desc">за перенос в другое место города</div>
+        <div class="bar-mini"><div class="fill" data-w="71"></div></div>
+        <div style="display:flex; gap:16px; margin-top:14px; font-size:13px;">
+          <div><span style="color:var(--green); font-weight:700;">54</span> <span style="color:var(--ink-soft);">— оставить на текущем месте</span></div>
+        </div>
+        <div style="font-size:13px; margin-top:6px;">
+          <span style="color:var(--violet); font-weight:700;">23</span> <span style="color:var(--ink-soft);">— в пределах площади</span>
+        </div>
+      </div>
+
+      <div class="vs-card vs-maybe reveal d-1">
+        <div class="head">
+          <span class="dot" style="background:var(--gold)"></span>
+          <span class="label">Детская зона</span>
+        </div>
+        <div class="big-num">65 <small>за</small></div>
+        <div class="desc">поддерживают размещение детской площадки</div>
+        <div class="bar-mini"><div class="fill" data-w="65"></div></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; font-size:13px;">
+          <div><span style="color:var(--red); font-weight:700;">50</span> <span style="color:var(--ink-soft);">— против</span></div>
+          <div><span style="color:var(--gold); font-weight:700;">33</span> <span style="color:var(--ink-soft);">— затрудняюсь</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="vs-grid" style="margin-top:20px;">
+      <div class="vs-card vs-no reveal">
+        <div class="head">
+          <span class="dot" style="background:var(--red)"></span>
+          <span class="label">Спортивная площадка</span>
+        </div>
+        <div class="big-num">95 <small>против</small></div>
+        <div class="desc">64% — против размещения спортзоны</div>
+        <div class="bar-mini"><div class="fill" data-w="95"></div></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; font-size:13px;">
+          <div><span style="color:var(--green); font-weight:700;">35</span> <span style="color:var(--ink-soft);">— поддерживают</span></div>
+          <div><span style="color:var(--gold); font-weight:700;">18</span> <span style="color:var(--ink-soft);">— затрудняюсь</span></div>
+        </div>
+      </div>
+
+      <div class="vs-card vs-yes reveal d-1">
+        <div class="head">
+          <span class="dot" style="background:var(--green)"></span>
+          <span class="label">Зона пикника</span>
+        </div>
+        <div class="big-num">105 <small>за</small></div>
+        <div class="desc">71% — за размещение зоны для пикника</div>
+        <div class="bar-mini"><div class="fill" data-w="105"></div></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; font-size:13px;">
+          <div><span style="color:var(--red); font-weight:700;">34</span> <span style="color:var(--ink-soft);">— против</span></div>
+          <div><span style="color:var(--gold); font-weight:700;">9</span> <span style="color:var(--ink-soft);">— затрудняюсь</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 11 ОЗЕЛЕНЕНИЕ ===== -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-num">11 / Озеленение</span>
+      <span class="eyebrow">Деревья и кустарники</span>
+      <h2>Липы оставить, сухие убрать</h2>
+      <p class="section-lead">76% респондентов — за мягкую санитарную очистку с сохранением здоровых деревьев. Полная перепланировка озеленения — у 19%.</p>
+    </div>
+
+    <div class="card reveal" style="padding:36px;">
+      <div class="donut-wrap">
+        <div class="donut">
+          <svg viewBox="0 0 100 100">
+            <circle class="track" cx="50" cy="50" r="40"/>
+            <circle class="seg" cx="50" cy="50" r="40" stroke="var(--green)" data-dasharray="0 251.3" data-target="190.1"/>
+            <circle class="seg" cx="50" cy="50" r="40" stroke="var(--violet)" data-dasharray="0 251.3" data-target="47.5"/>
+            <circle class="seg" cx="50" cy="50" r="40" stroke="var(--gold)" data-dasharray="0 251.3" data-target="13.6"/>
+          </svg>
+          <div class="donut-center">
+            <div class="v" style="color:var(--green)">76%</div>
+            <div class="l">саночистка</div>
+          </div>
+        </div>
+        <div class="donut-legend" style="flex:1.5;">
+          <div class="item">
+            <span class="sw" style="background:var(--green); width:18px; height:18px;"></span>
+            <span style="font-size:15px;">Санитарная очистка: оставить здоровые, убрать сухие</span>
+            <span class="v" style="font-size:18px;">112</span>
+          </div>
+          <div class="item">
+            <span class="sw" style="background:var(--violet); width:18px; height:18px;"></span>
+            <span style="font-size:15px;">Полностью пересмотреть озеленение</span>
+            <span class="v" style="font-size:18px;">28</span>
+          </div>
+          <div class="item">
+            <span class="sw" style="background:var(--gold); width:18px; height:18px;"></span>
+            <span style="font-size:15px;">Затрудняюсь ответить</span>
+            <span class="v" style="font-size:18px;">8</span>
+          </div>
+          <div class="quote" style="margin-top:18px; padding:16px 20px; font-size:13px;">
+            «Самое главное — ровные пешеходные дорожки и не трогать липы!»
+            <span class="author">— Типичный ответ респондента</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 12 КЛЮЧЕВЫЕ ВЫВОДЫ ===== -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-num">12 / Синтез</span>
+      <span class="eyebrow">Ключевые выводы</span>
+      <h2>Что делать с площадью</h2>
+      <p class="section-lead">Свёрнутая позиция горожан — в восьми тезисах.</p>
+    </div>
+
+    <div class="insight-grid">
+      <div class="insight reveal">
+        <div class="n">01</div>
+        <div>
+          <h4>Сохранить фонтан, обновить его</h4>
+          <p>70% за реконструкцию с сохранением идентичности. Фонтан — неприкосновенен, но требует современного подхода.</p>
+        </div>
+      </div>
+      <div class="insight reveal d-1">
+        <div class="n">02</div>
+        <div>
+          <h4>Памятник Салтыкова-Щедрина оставить</h4>
+          <p>53% — оставить на текущем месте. Это историческое ядро площади, и большинство горожан за его сохранение.</p>
+        </div>
+      </div>
+      <div class="insight reveal">
+        <div class="n">03</div>
+        <div>
+          <h4>Памятник «Семья» — перенести</h4>
+          <p>48% за перенос в другое место города. Предлагается переместить к перинатальному центру.</p>
+        </div>
+      </div>
+      <div class="insight reveal d-1">
+        <div class="n">04</div>
+        <div>
+          <h4>Зелёный каркас — главный приоритет</h4>
+          <p>Современное озеленение (118 голосов) и санитарная чистка (76%). Тень и липы — то, что люди хотят сохранить.</p>
+        </div>
+      </div>
+      <div class="insight reveal">
+        <div class="n">05</div>
+        <div>
+          <h4>Спортивной зоне — нет</h4>
+          <p>64% против спортплощадки. Площадь — для тихого отдыха, а не для тренировок. Это самый отвергаемый объект.</p>
+        </div>
+      </div>
+      <div class="insight reveal d-1">
+        <div class="n">06</div>
+        <div>
+          <h4>Туалет должен работать</h4>
+          <p>Главная боль в комментариях: неработающий общественный туалет. Это позор центральной площади.</p>
+        </div>
+      </div>
+      <div class="insight reveal">
+        <div class="n">07</div>
+        <div>
+          <h4>Зона пикника — да, торговля — осторожно</h4>
+          <p>71% за пикник, но 51 человек хочет площадь без торговли. Решение: 1–2 лаконичных стационарных объекта.</p>
+        </div>
+      </div>
+      <div class="insight reveal d-1">
+        <div class="n">08</div>
+        <div>
+          <h4>Решить конфликт собачников и родителей</h4>
+          <p>Часть горожан за запрет выгула, часть — за специальные площадки. Решение: зонирование + боксы с пакетами.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 13 ЦИТАТЫ ===== -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-num">13 / Голоса</span>
+      <span class="eyebrow">Цитаты респондентов</span>
+      <h2>Что говорят люди</h2>
+    </div>
+    <div class="insight-grid">
+      <div class="quote reveal">
+        «Хочется, чтобы были полянки для пикников, игр с питомцами, йоги на свежем воздухе. Фонтан пусть останется, но он выглядит очень потрёпанно».
+        <span class="author">— Женщина, 29 лет, владелица собаки</span>
+      </div>
+      <div class="quote reveal d-1">
+        «Даже в Угличе с населением 40 000 парк функциональнее. Фонтан оставить — он крутой и исторический, помыть и подшаманить».
+        <span class="author">— Женщина, 29 лет</span>
+      </div>
+      <div class="quote reveal">
+        «Вдохновиться парком Галицкого».
+        <span class="author">— Женщина, 41 год</span>
+      </div>
+      <div class="quote reveal d-1">
+        «Не надо ничего спортивного и детских площадок. Оставьте и сохраните атмосферу».
+        <span class="author">— Женщина, 49 лет</span>
+      </div>
+      <div class="quote reveal">
+        «Очень хотелось бы видеть в благоустройстве отражение прошлого площади, особенно отражение торговых рядов».
+        <span class="author">— Мужчина, 21 год</span>
+      </div>
+      <div class="quote reveal d-1">
+        «Обязательно оставить часть деревьев, совсем не осталось таких парков — в основном всё закладывают плиткой».
+        <span class="author">— Типичный запрос горожан</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="dev">
+      Разработчик <a href="#">2kad.it</a>
+    </div>
+    <div class="copy">Тверская площадь · Инфографика исследования общественного мнения · 148 респондентов · 2026</div>
+  </div>
+</footer>
+
+<script>
+// ============================================
+// Intersection observer for reveal animations
+// ============================================
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
+      // Trigger specific animations
+      if (entry.target.querySelector('.bar-fill')) animateBars(entry.target);
+      if (entry.target.querySelector('.donut .seg')) animateDonut(entry.target);
+      if (entry.target.querySelector('.stack-bar .seg')) animateStack(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ============================================
+// Animated counters
+// ============================================
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.count);
+      if (!isNaN(target)) animateCounter(el, target);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+
+function animateCounter(el, target) {
+  const duration = 1500;
+  const start = performance.now();
+  const hasPercent = el.textContent.includes('%');
+  const suffix = hasPercent ? '%' : '';
+  function step(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(target * eased) + suffix;
+    if (p < 1) requestAnimationFrame(step);
+    else el.textContent = target + suffix;
+  }
+  requestAnimationFrame(step);
+}
+
+// ============================================
+// Bar fills
+// ============================================
+function animateBars(scope) {
+  const fills = scope.querySelectorAll('.bar-fill');
+  fills.forEach((fill, i) => {
+    const w = parseFloat(fill.dataset.w);
+    if (isNaN(w)) return;
+    setTimeout(() => {
+      const max = Math.max(...Array.from(scope.querySelectorAll('.bar-fill')).map(f => parseFloat(f.dataset.w) || 0));
+      const pct = (w / max) * 100;
+      fill.style.width = pct + '%';
+    }, 100 + i * 60);
+  });
+}
+
+// ============================================
+// Donut segments
+// ============================================
+function animateDonut(scope) {
+  const segs = scope.querySelectorAll('.donut .seg');
+  let offset = 0;
+  const C = 251.3; // 2*pi*40
+  segs.forEach((seg, i) => {
+    const target = parseFloat(seg.dataset.target);
+    if (isNaN(target)) return;
+    setTimeout(() => {
+      // Set dasharray to show only this segment
+      seg.style.strokeDasharray = `0 ${C}`;
+      // Animate to target
+      requestAnimationFrame(() => {
+        seg.style.transition = 'stroke-dasharray 1.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        seg.style.strokeDasharray = `${target} ${C - target}`;
+        seg.style.strokeDashoffset = -offset;
+      });
+      offset += target;
+    }, 200 + i * 150);
+  });
+}
+
+// ============================================
+// Stacked bar
+// ============================================
+function animateStack(scope) {
+  const segs = scope.querySelectorAll('.stack-bar .seg');
+  setTimeout(() => {
+    segs.forEach((seg, i) => {
+      const pct = parseFloat(seg.dataset.pct);
+      if (isNaN(pct)) return;
+      setTimeout(() => { seg.style.flex = pct; }, i * 100);
+    });
+  }, 200);
+}
+
+// ============================================
+// VS mini bars
+// ============================================
+const vsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const fill = entry.target.querySelector('.fill');
+      if (fill) {
+        const w = parseFloat(fill.dataset.w);
+        if (!isNaN(w)) {
+          const max = 148;
+          const pct = (w / max) * 100;
+          setTimeout(() => { fill.style.width = Math.min(pct, 100) + '%'; }, 200);
+        }
+      }
+      vsObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.vs-card').forEach(el => vsObserver.observe(el));
+
+// ============================================
+// Bubble scale on scroll
+// ============================================
+const bubbleObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const bubbles = entry.target.querySelectorAll('.bubble');
+      bubbles.forEach((b, i) => {
+        b.style.opacity = '0';
+        b.style.transform = 'scale(0.7)';
+        setTimeout(() => {
+          b.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+          b.style.opacity = '1';
+          b.style.transform = 'scale(1)';
+        }, 100 + i * 70);
+      });
+      bubbleObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('#bubbleWrap').forEach(el => bubbleObserver.observe(el));
+
+// ============================================
+// Parallax on hero rings (subtle mouse follow)
+// ============================================
+const heroVisual = document.querySelector('.hero-visual');
+if (heroVisual) {
+  let raf = null;
+  document.addEventListener('mousemove', (e) => {
+    if (raf) cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 12;
+      const y = (e.clientY / window.innerHeight - 0.5) * 12;
+      heroVisual.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  });
+}
+
+// Pre-trigger counter on hero (which is above fold)
+window.addEventListener('load', () => {
+  document.querySelectorAll('.hero [data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    if (!isNaN(target)) animateCounter(el, target);
+  });
+});
+</script>
+</body>
+</html>
