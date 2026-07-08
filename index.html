@@ -377,6 +377,26 @@ footer {
 footer .dev { font-size: 14px; color: var(--ink-soft); }
 footer .dev a { color: var(--green); text-decoration: none; border-bottom: 1px dashed var(--green); padding-bottom: 1px; }
 footer .copy { font-size: 12px; color: var(--ink-soft); margin-top: 8px; opacity: 0.6; }
+footer .case-cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  margin-top: 22px; padding: 14px 24px;
+  background: linear-gradient(135deg, var(--gold-soft), rgba(245, 192, 101, 0.08));
+  border: 1px solid var(--gold); border-radius: 999px;
+  color: var(--gold); font-size: 14px; font-weight: 600;
+  text-decoration: none; letter-spacing: 0.01em;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  position: relative; overflow: hidden;
+}
+footer .case-cta::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transform: translateX(-100%); transition: transform 0.6s ease;
+}
+footer .case-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245, 192, 101, 0.3); color: var(--ink); }
+footer .case-cta:hover::before { transform: translateX(100%); }
+footer .case-cta .arrow { font-size: 18px; transition: transform 0.25s ease; }
+footer .case-cta:hover .arrow { transform: translateX(4px); }
+footer .case-sub { display: block; font-size: 11px; color: var(--ink-soft); margin-top: 10px; opacity: 0.7; }
 
 /* ==== Reveal animation ==== */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -1097,15 +1117,15 @@ footer .copy { font-size: 12px; color: var(--ink-soft); margin-top: 8px; opacity
 <!-- ===== FOOTER ===== -->
 <footer>
   <div class="container">
-    <div class="dev">
+    <a href="https://urban2kad.ru/cases/tver-square.html" target="_blank" rel="noopener" class="case-cta">
+      <span>Подробный кейс на urban2kad.ru</span>
+      <span class="arrow">→</span>
+    </a>
+    <span class="case-sub">Полная аналитика, методология, рекомендации по благоустройству</span>
+    <div class="dev" style="margin-top:32px;">
       Разработчик <a href="#">2kad.it</a>
     </div>
-    <div class="copy">
-      Тверская площадь · Инфографика исследования общественного мнения · 148 респондентов · 2026<br>
-      <a href="https://urban2kad.ru/cases/tver-square.html" target="_blank" rel="noopener" style="color:var(--green); text-decoration:none; border-bottom: 1px dashed var(--green); padding-bottom: 1px; display:inline-block; margin-top:6px;">
-        Подробный кейс на urban2kad.ru →
-      </a>
-    </div>
+    <div class="copy">Тверская площадь · Инфографика исследования общественного мнения · 148 респондентов · 2026</div>
   </div>
 </footer>
 
